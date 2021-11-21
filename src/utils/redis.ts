@@ -5,7 +5,7 @@ import { IRedis } from '../config/interfaces'
 
 let instance = null
 
-export function getRedis(keyPrefix = `${config.appName}.`): IoRedis.Redis {
+export const getRedis = (keyPrefix = `${config.appName}.`): IoRedis.Redis => {
     if (instance) return instance
 
     const dbConf = ({ ...config.storage.redis, keyPrefix }) as IRedis

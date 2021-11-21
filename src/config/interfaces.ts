@@ -33,8 +33,6 @@ export interface IConfig {
     readonly port: number
     // Service name
     readonly appName: string
-    // Base route for service api
-    readonly route: string
     // The host for your application
     readonly host: string
     readonly storage: IStorage

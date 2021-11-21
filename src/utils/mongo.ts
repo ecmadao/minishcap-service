@@ -21,7 +21,6 @@ export const getMongo = (options: { url: string, dbName: string }): Promise<mong
         } else {
             mongodb.MongoClient.connect(
                 url,
-                { useNewUrlParser: true, useUnifiedTopology: true },
                 (err, client) => {
                     if (err) {
                         logger.error(err)
@@ -37,13 +36,17 @@ export const getMongo = (options: { url: string, dbName: string }): Promise<mong
     })
 }
 
-export async function initDatabaseIndexs(options: { url: string, dbName: string }) {
+export const initDatabaseIndexs = async (options: { url: string, dbName: string }) => {
     const db = await getMongo(options)
 
     try {
         await db.collection(Collections.Urls).createIndex(
             { id: 1 },
             { name: 'id', background: true, unique: true },
+        )
+        await db.collection(Collections.Urls).createIndex(
+            { expiredAt: 1 },
+            { name: 'expiredAt', background: true, unique: false },
         )
     } catch (e) {
         logger.error(e)

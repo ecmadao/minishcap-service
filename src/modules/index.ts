@@ -2,13 +2,12 @@ import * as fs from 'fs'
 import * as path from 'path'
 import Koa from 'koa'
 import Router from 'koa-router'
-import * as Types from '../utils/interfaces/iservice'
 import { logger } from '../utils/logger'
-import { config } from '../config'
-import { IModule, IRouter } from './shared/interfaces'
 import { routerSchema } from './shared/schema'
+import * as Types from '../utils/interfaces/iservice'
+import { IModule, IRouter } from './shared/interfaces'
 
-function initRouter(app: Koa) {
+export const initRouter = (app: Koa) => {
     fs.readdirSync(__dirname).forEach((file) => {
         const modPath = path.join(__dirname, file)
         if (file !== 'shared' && fs.statSync(modPath).isDirectory()) {
@@ -21,8 +20,7 @@ function initRouter(app: Koa) {
             }
 
             const routes = router.modules
-
-            let baseUrl = path.join(config.route, router.baseUrl)
+            let { baseUrl } = router
             if (baseUrl.endsWith('/')) {
                 baseUrl = baseUrl.slice(0, -1)
             }
@@ -56,5 +54,3 @@ function initRouter(app: Koa) {
         }
     })
 }
-
-export default initRouter

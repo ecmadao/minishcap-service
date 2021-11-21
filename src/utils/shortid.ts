@@ -1,7 +1,8 @@
 import { Redis } from 'ioredis'
+import { logger } from './logger'
 
 const SEED_KEY = 'seed'
-const AVAILABLE_IDS = 'availableids'
+const AVAILABLE_IDS = 'availableIds'
 const CHARS = '0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIGKLMNOPQRSTUVWXYZ-~'
 
 const convertTo64String = (num: number): string => {
@@ -25,7 +26,10 @@ export const generateShortId = async (cache: Redis): Promise<string> => {
      * Which means we need to make a schedule service to release expired short ids
      */
     const available = await cache.spop(AVAILABLE_IDS)
-    if (available) return available
+    logger.debug(`Get available id from pool: ${available}`)
+    if (available) {
+        return available
+    }
 
     const num = await cache.incrby(SEED_KEY, 1)
     return convertTo64String(num)

@@ -35,13 +35,13 @@ $ npm run start-dev
 
 ### Generate short link
 
-Request
+Request:
 
 ```bash
 POST /api/v1/urls
 ```
 
-Body
+Body:
 
 ```json
 {
@@ -49,6 +49,21 @@ Body
         {
             "url": "your URL here",
             "ttlInSeconds": 60 // Time to live in seconds. Set anything < 0 (like -1) if it has no expire time
+        }
+    ]
+}
+```
+
+Response:
+
+```json
+{
+    "success": true,
+    "result": [
+        {
+            "short": "the short url",
+            "raw": "the raw url",
+            "expiredAt": "expiration datetime"
         }
     ]
 }

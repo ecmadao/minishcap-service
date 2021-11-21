@@ -1,11 +1,11 @@
 import { Db } from 'mongodb'
 import { Redis } from 'ioredis'
 import { config } from '../../config'
+import CustomError from '../../utils/error'
+import { logger } from '../../utils/logger'
 import { Collections } from '../../utils/mongo'
 import { IShortLink } from '../../utils/models/ishortlink'
 import { IShortLinkRequest } from '../urls/interfaces'
-import CustomError from '../../utils/error'
-import { logger } from '../../utils/logger'
 
 const getUrlHost = (url: string): string | undefined => url.split('?')[0]?.split(/^https?:\/\//).slice(-1)[0]
 export const isShortURL = (url: string) => getUrlHost(url)?.startsWith(config.host)
@@ -14,7 +14,7 @@ export const getShortIdFromDB = async (
     db: Db,
     query: { id?: string, url?: string },
 ): Promise<IShortLink | undefined> => {
-    const res: IShortLink = await db.collection(Collections.Urls).findOne({
+    const res: IShortLink = await db.collection<IShortLink>(Collections.Urls).findOne({
         ...query,
         $or: [
             {
@@ -52,9 +52,11 @@ const setShortLinkToCache = async (cache: Redis, shortLink: IShortLink): Promise
     if (shortLink.expiredAt) {
         ttl = Math.min(
             cacheTtlInSeconds,
-            Math.floor((shortLink.expiredAt.getTime() - new Date().getTime()) / 100),
+            Math.floor((shortLink.expiredAt.getTime() - new Date().getTime()) / 1000),
         )
     }
+
+    logger.debug(`Set TTL ${ttl} for short id ${shortLink.id}`)
 
     if (ttl <= 0) return
     await cache.set(
@@ -73,7 +75,11 @@ const getShortLinkFromCache = async (cache: Redis, id: string): Promise<IShortLi
     if (!str) return
 
     try {
-        return JSON.parse(str) as IShortLink
+        const res: IShortLink = JSON.parse(str)
+
+        // Refresh TTL
+        await setShortLinkToCache(cache, res)
+        return res
     } catch (err) {
         logger.error(err)
     }
@@ -85,7 +91,7 @@ export const setShortLinkToStorage = async (
     id: string,
     urlRequest: IShortLinkRequest,
 ): Promise<IShortLink> => {
-    const res = await db.collection(Collections.Urls).findOneAndUpdate(
+    const res = await db.collection<IShortLink>(Collections.Urls).findOneAndUpdate(
         { id },
         {
             $set: {
@@ -115,9 +121,9 @@ export const getShortLinkFromStorage = async (
     id: string,
 ): Promise<IShortLink | undefined> => {
     const cached: IShortLink = await getShortLinkFromCache(cache, id)
-
     if (cached !== undefined) return cached
 
+    logger.debug(`Cache for link ${id} expired. Now get from DB`)
     const res: IShortLink = await getShortIdFromDB(db, { id })
     if (res) {
         await setShortLinkToCache(cache, res)
