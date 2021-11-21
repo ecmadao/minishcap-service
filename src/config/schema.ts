@@ -32,7 +32,6 @@ const loggerSchema = Joi.object({
 export const configSchema = Joi.object({
     port: Joi.number().required(),
     appName: Joi.string().required(),
-    route: Joi.string().required().regex(/^\//),
     host: Joi.string().required().uri(),
     storage: Joi.object({
         mongo: mongoSchema,

@@ -6,7 +6,7 @@ export const baseUrl: string = '/'
 export const modules: IModule[] = [
     {
         method: RequestMethod.Get,
-        route: '/',
+        route: '/:shortid',
         handlers: [
             controller.goHome,
         ],

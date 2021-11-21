@@ -4,7 +4,7 @@ import { bodyValidation } from '../shared/validation'
 import { bodySchema } from './schema'
 import { IShortLinkRequestBody } from './interfaces'
 
-export const baseUrl: string = '/urls'
+export const baseUrl: string = '/api/v1/urls'
 
 export const modules: IModule[] = [
     {

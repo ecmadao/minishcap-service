@@ -1,4 +1,3 @@
 port: 3334
 appName: minishcap
-route: /api/v1
 host: http://127.0.0.1:3334

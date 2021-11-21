@@ -4,7 +4,6 @@ import Koa from 'koa'
 import Router from 'koa-router'
 import * as Types from '../utils/interfaces/iservice'
 import { logger } from '../utils/logger'
-import { config } from '../config'
 import { IModule, IRouter } from './shared/interfaces'
 import { routerSchema } from './shared/schema'
 
@@ -21,8 +20,7 @@ function initRouter(app: Koa) {
             }
 
             const routes = router.modules
-
-            let baseUrl = path.join(config.route, router.baseUrl)
+            let { baseUrl } = router
             if (baseUrl.endsWith('/')) {
                 baseUrl = baseUrl.slice(0, -1)
             }
