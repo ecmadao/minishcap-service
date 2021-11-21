@@ -2,5 +2,6 @@ export interface IShortLink {
     id: string
     url: string
     createdAt: Date
-    expiredAt: Date
+    updatedAt: Date
+    expiredAt?: Date
 }

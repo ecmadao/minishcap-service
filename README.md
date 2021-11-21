@@ -31,6 +31,29 @@ $ npm run start-dev
 # Then open browser with URL http://localhost:3334/api/v1/
 ```
 
+## APIs
+
+### Generate short link
+
+Request
+
+```bash
+POST /api/v1/urls
+```
+
+Body
+
+```json
+{
+    "urls": [
+        {
+            "url": "your URL here",
+            "ttlInSeconds": 60 // Time to live in seconds. Set anything < 0 (like -1) if it has no expire time
+        }
+    ]
+}
+```
+
 ## Deploy
 
 TODO
