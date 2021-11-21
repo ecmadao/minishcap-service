@@ -32,7 +32,6 @@
     "@types/koa2-ratelimit": "^0.9.1",
     "@types/mocha": "^5.2.6",
     "@types/node": "^10.12.7",
-    "@types/shortid": "0.0.29",
     "@types/supertest": "^2.0.7",
     "@types/uuid": "^8.3.3",
     "@typescript-eslint/eslint-plugin": "^4.31.0",
@@ -64,7 +63,6 @@
     "log4js": "^6.2.1",
     "moment": "^2.22.2",
     "mongodb": "^3.2.7",
-    "shortid": "^2.2.16",
     "uuid": "^8.3.2"
   }
 }
