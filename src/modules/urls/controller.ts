@@ -43,7 +43,7 @@ export const generateShortLinks: IController = async (ctx) => {
         urls.map(async (urlRequest) => {
             try {
                 const short = await generateShortLink(ctx.db, ctx.cache, urlRequest)
-                logger.debug(`Generate short link for url ${urlRequest.url} -> ${short}`)
+                logger.debug(`Generate short link for url ${urlRequest.url} -> ${JSON.stringify(short)}`)
                 return short
             } catch (err) {
                 logger.error(err)

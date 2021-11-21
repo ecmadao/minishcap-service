@@ -16,9 +16,20 @@ export const getShortIdFromDB = async (
 ): Promise<IShortLink | undefined> => {
     const res: IShortLink = await db.collection(Collections.Urls).findOne({
         ...query,
-        expiredAt: {
-            $gt: new Date(),
-        },
+        $or: [
+            {
+                expiredAt: {
+                    $exists: true,
+                    $gt: new Date(),
+                },
+            },
+            {
+                expiredAt: {
+                    $exists: true,
+                    $eq: null,
+                },
+            },
+        ],
     })
 
     logger.debug(`Get existed short link with query: ${JSON.stringify(query)}, res: ${JSON.stringify(res)}`)
@@ -26,17 +37,24 @@ export const getShortIdFromDB = async (
 }
 
 // ttl is seconds
-const getExpireTime = (ttl: number): Date => new Date(new Date().getTime() + ttl * 1000)
+const getExpireTime = (ttl: number): Date | undefined => {
+    if (ttl < 0) return
+    return new Date(new Date().getTime() + ttl * 1000)
+}
+
 // one day cache in redis
 const cacheTtlInSeconds = 24 * 60 * 60
 
 const getCacheKey = (id: string): string => `shortid.${id}`
 
 const setShortLinkToCache = async (cache: Redis, shortLink: IShortLink): Promise<void> => {
-    const ttl = Math.min(
-        cacheTtlInSeconds,
-        Math.floor((shortLink.expiredAt.getTime() - new Date().getTime()) / 100),
-    )
+    let ttl = cacheTtlInSeconds
+    if (shortLink.expiredAt) {
+        ttl = Math.min(
+            cacheTtlInSeconds,
+            Math.floor((shortLink.expiredAt.getTime() - new Date().getTime()) / 100),
+        )
+    }
 
     if (ttl <= 0) return
     await cache.set(
