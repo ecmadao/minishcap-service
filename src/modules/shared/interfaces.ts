@@ -1,12 +1,12 @@
 import { IController } from '../../utils/interfaces/iservice'
 
-export enum requestMethod {
-    get = 'GET',
-    post = 'POST'
+export enum RequestMethod {
+    Get = 'GET',
+    Post = 'POST'
 }
 
 export interface IModule {
-    method: requestMethod
+    method: RequestMethod
     route: string
     handlers: IController[]
 }

@@ -10,7 +10,7 @@ logger:
 
 storage:
   mongo:
-    url: mongodb://localhost/minishcap
+    url: mongodb://localhost:27017/minishcap
     dbName: minishcap
   redis:
     host: 127.0.0.1

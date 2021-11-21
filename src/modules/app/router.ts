@@ -1,11 +1,11 @@
 import * as controller from './controller'
-import { IModule, requestMethod } from '../shared/interfaces'
+import { IModule, RequestMethod } from '../shared/interfaces'
 
 export const baseUrl: string = '/'
 
 export const modules: IModule[] = [
     {
-        method: requestMethod.get,
+        method: RequestMethod.Get,
         route: '/',
         handlers: [
             controller.goHome,

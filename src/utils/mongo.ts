@@ -5,8 +5,8 @@ import { logger } from './logger'
 const instance = {}
 
 export enum Collections {
-  urls = 'urls',
-  stat = 'stat',
+  Urls = 'urls',
+  Stat = 'stat',
 }
 
 export const getMongo = (options: { url: string, dbName: string }): Promise<mongodb.Db> => {
@@ -41,7 +41,7 @@ export async function initDatabaseIndexs(options: { url: string, dbName: string 
     const db = await getMongo(options)
 
     try {
-        await db.collection(Collections.urls).createIndex(
+        await db.collection(Collections.Urls).createIndex(
             { id: 1 },
             { name: 'id', background: true, unique: true },
         )

@@ -1,8 +1,8 @@
 import Joi from 'joi'
-import { requestMethod } from './interfaces'
+import { RequestMethod } from './interfaces'
 
 const moduleSchema = Joi.object({
-    method: Joi.string().required().valid(requestMethod.get, requestMethod.post),
+    method: Joi.string().required().valid(RequestMethod.Get, RequestMethod.Post),
     route: Joi.string().required().regex(/^\//),
     handlers: Joi.array().required().items(Joi.any()).min(1),
 })
