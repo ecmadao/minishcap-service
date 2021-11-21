@@ -14,7 +14,7 @@ export const getShortIdFromDB = async (
     db: Db,
     query: { id?: string, url?: string },
 ): Promise<IShortLink | undefined> => {
-    const res: IShortLink = await db.collection(Collections.Urls).findOne({
+    const res: IShortLink = await db.collection<IShortLink>(Collections.Urls).findOne({
         ...query,
         $or: [
             {
@@ -91,7 +91,7 @@ export const setShortLinkToStorage = async (
     id: string,
     urlRequest: IShortLinkRequest,
 ): Promise<IShortLink> => {
-    const res = await db.collection(Collections.Urls).findOneAndUpdate(
+    const res = await db.collection<IShortLink>(Collections.Urls).findOneAndUpdate(
         { id },
         {
             $set: {
