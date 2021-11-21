@@ -1,0 +1,70 @@
+{
+  "name": "minishcap-service",
+  "version": "0.0.1",
+  "description": "A URL shortener service",
+  "main": "index.js",
+  "scripts": {
+    "lint": "npx eslint ./src/**/*.ts",
+    "lint-fix": "npx eslint ./src/**/*.ts --fix",
+    "start-dev": "bnr local:app:start",
+    "test": "mocha -r ts-node/register ./test/**/*.test.ts --exit"
+  },
+  "author": "ecmadao",
+  "license": "ISC",
+  "betterScripts": {
+    "local:app:start": {
+      "command": "./node_modules/.bin/nodemon",
+      "env": {
+        "NODE_ENV": "development"
+      }
+    }
+  },
+  "devDependencies": {
+    "@types/cache-manager": "^1.2.6",
+    "@types/chai": "^4.1.7",
+    "@types/ioredis": "^4.0.4",
+    "@types/js-yaml": "^4.0.5",
+    "@types/koa": "^2.0.46",
+    "@types/koa-bodyparser": "^5.0.1",
+    "@types/koa-json": "^2.0.18",
+    "@types/koa-logger": "^3.1.1",
+    "@types/koa-router": "^7.0.33",
+    "@types/koa2-ratelimit": "^0.9.1",
+    "@types/mocha": "^5.2.6",
+    "@types/node": "^10.12.7",
+    "@types/shortid": "0.0.29",
+    "@types/supertest": "^2.0.7",
+    "@types/uuid": "^8.3.3",
+    "@typescript-eslint/eslint-plugin": "^4.31.0",
+    "@typescript-eslint/parser": "^4.31.0",
+    "better-npm-run": "^0.1.1",
+    "chai": "^4.2.0",
+    "cross-env": "^5.2.0",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.24.2",
+    "mocha": "^6.0.2",
+    "nodemon": "^1.18.6",
+    "supertest": "^4.0.2",
+    "ts-node": "^7.0.1",
+    "tslint": "^5.11.0",
+    "typescript": "^3.1.6"
+  },
+  "dependencies": {
+    "cache-manager": "^2.9.0",
+    "ioredis": "^4.2.0",
+    "joi": "^17.4.2",
+    "js-yaml": "^4.1.0",
+    "koa": "^2.6.2",
+    "koa-bodyparser": "^4.2.1",
+    "koa-json": "^2.0.2",
+    "koa-logger": "^3.2.0",
+    "koa-router": "^7.4.0",
+    "koa2-ratelimit": "^0.9.0",
+    "log4js": "^6.2.1",
+    "moment": "^2.22.2",
+    "mongodb": "^3.2.7",
+    "shortid": "^2.2.16",
+    "uuid": "^8.3.2"
+  }
+}

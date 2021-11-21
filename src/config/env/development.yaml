@@ -1,0 +1,18 @@
+logger:
+  appenders:
+    consoleLog:
+      type: console
+  categories:
+    default:
+      appenders:
+        - consoleLog
+      level: debug
+
+storage:
+  mongo:
+    url: mongodb://localhost/minishcap
+    dbName: minishcap
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    db: 1
