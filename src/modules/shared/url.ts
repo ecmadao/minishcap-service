@@ -52,9 +52,11 @@ const setShortLinkToCache = async (cache: Redis, shortLink: IShortLink): Promise
     if (shortLink.expiredAt) {
         ttl = Math.min(
             cacheTtlInSeconds,
-            Math.floor((shortLink.expiredAt.getTime() - new Date().getTime()) / 100),
+            Math.floor((shortLink.expiredAt.getTime() - new Date().getTime()) / 1000),
         )
     }
+
+    logger.debug(`Set TTL ${ttl} for short id ${shortLink.id}`)
 
     if (ttl <= 0) return
     await cache.set(
@@ -73,7 +75,11 @@ const getShortLinkFromCache = async (cache: Redis, id: string): Promise<IShortLi
     if (!str) return
 
     try {
-        return JSON.parse(str) as IShortLink
+        const res: IShortLink = JSON.parse(str)
+
+        // Refresh TTL
+        await setShortLinkToCache(cache, res)
+        return res
     } catch (err) {
         logger.error(err)
     }
@@ -115,9 +121,9 @@ export const getShortLinkFromStorage = async (
     id: string,
 ): Promise<IShortLink | undefined> => {
     const cached: IShortLink = await getShortLinkFromCache(cache, id)
-
     if (cached !== undefined) return cached
 
+    logger.debug(`Cache for link ${id} expired. Now get from DB`)
     const res: IShortLink = await getShortIdFromDB(db, { id })
     if (res) {
         await setShortLinkToCache(cache, res)
