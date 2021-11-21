@@ -37,7 +37,7 @@ export const getMongo = (options: { url: string, dbName: string }): Promise<mong
     })
 }
 
-export async function initDatabaseIndexs(options: { url: string, dbName: string }) {
+export const initDatabaseIndexs = async (options: { url: string, dbName: string }) => {
     const db = await getMongo(options)
 
     try {

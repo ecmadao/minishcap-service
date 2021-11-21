@@ -78,6 +78,5 @@ jspm_packages
 dist
 tmp
 
-src/config/env/production.ts
 package-lock.json
 src/config/env/production.yaml

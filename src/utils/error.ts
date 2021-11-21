@@ -56,9 +56,8 @@ export const ERRORS: { [key: string]: IError } = {
    * @param {String} errName subclass name of error
    * @param {String} errorCode, error code for end-user,
    */
-function createError(errName: string) {
+const createError = (errName: string) => {
     const error: IError = ERRORS[errName]
-
     class NewError extends CustomError {
           errName: string
 

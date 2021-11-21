@@ -1,7 +1,7 @@
-import { IController } from '../../utils/interfaces/iservice'
 import { logger } from '../../utils/logger'
-import { getShortLinkFromStorage } from '../shared/url'
 import CustomError from '../../utils/error'
+import { getShortLinkFromStorage } from '../shared/url'
+import { IController } from '../../utils/interfaces/iservice'
 
 export const goHome: IController = async (ctx) => {
     const { shortid } = ctx.params

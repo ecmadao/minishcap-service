@@ -1,8 +1,8 @@
-import * as controller from './controller'
-import { IModule, RequestMethod } from '../shared/interfaces'
-import { bodyValidation } from '../shared/validation'
 import { bodySchema } from './schema'
+import * as controller from './controller'
+import { bodyValidation } from '../shared/validation'
 import { IShortLinkRequestBody } from './interfaces'
+import { IModule, RequestMethod } from '../shared/interfaces'
 
 export const baseUrl: string = '/api/v1/urls'
 

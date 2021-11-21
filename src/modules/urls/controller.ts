@@ -1,12 +1,12 @@
 import { Db } from 'mongodb'
 import { Redis } from 'ioredis'
-import { IController } from '../../utils/interfaces/iservice'
-import { IShortLinkRequestBody, IShortLinkRequest, IShortLinkResponse } from './interfaces'
-import * as UrlUtils from '../shared/url'
 import { config } from '../../config'
+import * as UrlUtils from '../shared/url'
 import CustomError from '../../utils/error'
 import { logger } from '../../utils/logger'
 import { generateShortId } from '../../utils/shortid'
+import { IController } from '../../utils/interfaces/iservice'
+import { IShortLinkRequestBody, IShortLinkRequest, IShortLinkResponse } from './interfaces'
 
 const generateShortLink = async (
     db: Db,
