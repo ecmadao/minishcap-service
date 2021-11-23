@@ -132,4 +132,29 @@ describe('APIs test', () => {
             }
         }
     })
+
+    it('Should get 302 response for short link redirect', async () => {
+        let response = await request.post(uri).send({
+            urls: [
+                {
+                    url: 'hacknical.com',
+                    ttlInSeconds: 10,
+                },
+            ],
+        })
+
+        expect(response.statusCode).equal(200)
+        const { short } = response.body.result[0]
+        expect(!!short).equal(true)
+        expect(short.startsWith(config.host))
+
+        const path = short.split(config.host).slice(-1)[0]
+        response = await request.get(path).send()
+        expect(response.statusCode).equal(302)
+    })
+
+    it('Should get 404 response for not existed short link', async () => {
+        const response = await request.get('/not-exist').send()
+        expect(response.statusCode).equal(404)
+    })
 })

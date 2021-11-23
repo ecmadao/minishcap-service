@@ -52,7 +52,7 @@ const setShortLinkToCache = async (cache: Redis, shortLink: IShortLink): Promise
     if (shortLink.expiredAt) {
         ttl = Math.min(
             cacheTtlInSeconds,
-            Math.floor((shortLink.expiredAt.getTime() - new Date().getTime()) / 1000),
+            Math.floor((new Date(shortLink.expiredAt).getTime() - new Date().getTime()) / 1000),
         )
     }
 
