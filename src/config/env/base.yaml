@@ -1,3 +1,13 @@
 port: 3334
 appName: minishcap
 host: http://127.0.0.1:3334
+
+logger:
+  appenders:
+    consoleLog:
+      type: console
+  categories:
+    default:
+      appenders:
+        - consoleLog
+      level: debug

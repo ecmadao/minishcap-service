@@ -7,6 +7,7 @@
     "lint": "npx eslint ./src/**/*.ts",
     "lint-fix": "npx eslint ./src/**/*.ts --fix",
     "start-dev": "bnr local:app:start",
+    "start": "bnr app:start",
     "test": "mocha -r ts-node/register ./test/**/*.test.ts --exit"
   },
   "author": "ecmadao",
@@ -17,6 +18,9 @@
       "env": {
         "NODE_ENV": "development"
       }
+    },
+    "app:start": {
+      "command": "./node_modules/.bin/nodemon"
     }
   },
   "devDependencies": {

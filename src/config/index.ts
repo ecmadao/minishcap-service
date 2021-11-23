@@ -27,6 +27,8 @@ const generateConfig = (): IConfig => {
     const env = process.env.NODE_ENV || 'base'
     const baseConfig = loadFile('base')
     const envConfig = loadFile(env)
+    console.log(`load environment from ${env}`)
+
     const config = ({ ...baseConfig, ...envConfig }) as IConfig
 
     const check = configSchema.validate(config)

@@ -1,0 +1,32 @@
+version: '3'
+services:
+  redis:
+    image: redis
+    networks:
+      - nodeapp-network
+
+  db:
+    image: mongo
+    volumes:
+      - ./data:/data/db
+    ports:
+      - '27018:27017'
+    networks:
+      - nodeapp-network
+
+  web:
+    build: .
+    ports:
+      - '3334:3334'
+    environment:
+      - NODE_ENV=docker
+    depends_on:
+      - redis
+      - db
+    networks:
+      - nodeapp-network
+
+
+networks:
+  nodeapp-network:
+    driver: bridge

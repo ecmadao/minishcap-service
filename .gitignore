@@ -80,3 +80,4 @@ tmp
 
 package-lock.json
 src/config/env/production.yaml
+/data
