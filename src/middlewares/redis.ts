@@ -1,6 +1,6 @@
 import { Redis } from 'ioredis'
 import { getRedis } from '../utils/redis'
-import { IController } from '../utils/interfaces/iservice'
+import { IController } from '../utils/interfaces'
 
 declare module 'koa' {
     interface Context { // eslint-disable-line no-unused-vars

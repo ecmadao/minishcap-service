@@ -5,7 +5,7 @@ import * as UrlUtils from '../shared/url'
 import CustomError from '../../utils/error'
 import { logger } from '../../utils/logger'
 import { generateShortId } from '../../utils/shortid'
-import { IController } from '../../utils/interfaces/iservice'
+import { IController } from '../../utils/interfaces'
 import { IShortLinkRequestBody, IShortLinkRequest, IShortLinkResponse } from './interfaces'
 
 const generateShortLink = async (
@@ -13,6 +13,7 @@ const generateShortLink = async (
     cache: Redis,
     urlRequest: IShortLinkRequest,
 ): Promise<IShortLinkResponse> => {
+    logger.debug(`Start generate short link for ${JSON.stringify(urlRequest)}`)
     if (UrlUtils.isShortURL(urlRequest.url)) {
         return {
             short: null,

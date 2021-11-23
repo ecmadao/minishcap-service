@@ -1,4 +1,4 @@
-import { IController } from '../../utils/interfaces/iservice'
+import { IController } from '../../utils/interfaces'
 
 export enum RequestMethod {
     Get = 'GET',

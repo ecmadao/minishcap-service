@@ -1,6 +1,6 @@
 import { ObjectSchema } from 'joi'
 import CustomError from '../../utils/error'
-import { IController } from '../../utils/interfaces/iservice'
+import { IController } from '../../utils/interfaces'
 
 export function bodyValidation<T>(schema: ObjectSchema): IController {
     return async (ctx, next) => {

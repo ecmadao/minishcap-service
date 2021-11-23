@@ -1,5 +1,6 @@
 import Koa from 'koa'
 import koaLogger from 'koa-logger'
+import cors from '@koa/cors'
 import bodyParser from 'koa-bodyparser'
 import apiLimit from 'koa2-ratelimit'
 import { config } from './config'
@@ -17,6 +18,7 @@ const limiter = apiLimit.RateLimit.middleware({
 
 const app = new Koa()
 
+app.use(cors())
 app.use(errorMiddleware)
 app.use(koaLogger())
 app.use(limiter)

@@ -1,6 +1,6 @@
 import { logger } from '../utils/logger'
 import { ERRORS } from '../utils/error'
-import { IController } from '../utils/interfaces/iservice'
+import { IController } from '../utils/interfaces'
 
 export const errorMiddleware: IController = async (ctx, next) => {
     try {

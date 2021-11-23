@@ -4,7 +4,7 @@ import { config } from '../../config'
 import CustomError from '../../utils/error'
 import { logger } from '../../utils/logger'
 import { Collections } from '../../utils/mongo'
-import { IShortLink } from '../../utils/models/ishortlink'
+import { IShortLink } from '../../utils/models'
 import { IShortLinkRequest } from '../urls/interfaces'
 
 const getUrlHost = (url: string): string | undefined => url.split('?')[0]?.split(/^https?:\/\//).slice(-1)[0]

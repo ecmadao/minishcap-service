@@ -1,7 +1,7 @@
 import { Db } from 'mongodb'
 import { config } from '../config'
 import { getMongo } from '../utils/mongo'
-import { IController } from '../utils/interfaces/iservice'
+import { IController } from '../utils/interfaces'
 
 declare module 'koa' {
     interface Context { // eslint-disable-line no-unused-vars

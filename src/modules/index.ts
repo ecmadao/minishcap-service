@@ -4,7 +4,7 @@ import Koa from 'koa'
 import Router from 'koa-router'
 import { logger } from '../utils/logger'
 import { routerSchema } from './shared/schema'
-import * as Types from '../utils/interfaces/iservice'
+import * as Types from '../utils/interfaces'
 import { IModule, IRouter } from './shared/interfaces'
 
 export const initRouter = (app: Koa) => {

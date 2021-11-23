@@ -1,4 +1,4 @@
-# MinishCap Service
+# Minishcap Service
 
 A short link service
 
@@ -71,4 +71,15 @@ Response:
 
 ## Deploy
 
-TODO
+### Prerequisites
+
+Check your configuration in production: `./src/config/env/production.yaml`
+
+### Scheduler
+
+I also build a scheduler to free expired short ids, release them into Redis set.
+Thus, everytime before we need to create a new short id, we can check if can use the old one.
+
+You can find the scheduler here: [minishcap-scheduler](https://github.com/ecmadao/minishcap-scheduler), written in pure TypeScript.
+
+Hint: It's totally okay not use the scheduler in your project.

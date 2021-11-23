@@ -1,7 +1,13 @@
 import Joi from 'joi'
+import validator from 'validator'
 
 const urlSchema = Joi.object({
-    url: Joi.string().required().uri(),
+    url: Joi.string().required().custom((val) => {
+        if (!validator.isURL(val)) {
+            throw new Error(`${val} is not a valid URL`)
+        }
+        return true
+    }),
     ttlInSeconds: Joi.number().required().min(-1),
 })
 
