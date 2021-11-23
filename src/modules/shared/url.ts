@@ -8,7 +8,7 @@ import { IShortLink } from '../../utils/models'
 import { IShortLinkRequest } from '../urls/interfaces'
 
 const getUrlHost = (url: string): string | undefined => url.split('?')[0]?.split(/^https?:\/\//).slice(-1)[0]
-export const isShortURL = (url: string) => getUrlHost(url)?.startsWith(config.host)
+export const isShortURL = (url: string) => getUrlHost(url)?.startsWith(getUrlHost(config.host))
 
 export const getShortIdFromDB = async (
     db: Db,

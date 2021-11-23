@@ -12,7 +12,8 @@ const urlSchema = Joi.object({
 })
 
 export const bodySchema = Joi.object({
-    urls: Joi.array().items(
+    urls: Joi.array().required().items(
         urlSchema,
-    ).min(1).max(10),
+    ).min(1)
+        .max(10),
 })

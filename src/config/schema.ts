@@ -1,4 +1,5 @@
 import Joi from 'joi'
+import validator from 'validator'
 
 const redisSchema = Joi.object({
     host: Joi.string().required(),
@@ -32,7 +33,12 @@ const loggerSchema = Joi.object({
 export const configSchema = Joi.object({
     port: Joi.number().required(),
     appName: Joi.string().required(),
-    host: Joi.string().required().uri(),
+    host: Joi.string().required().custom((val) => {
+        if (!validator.isURL(val)) {
+            throw new Error(`${val} is not a valid URL`)
+        }
+        return true
+    }),
     storage: Joi.object({
         mongo: mongoSchema,
         redis: redisSchema,
